@@ -3,13 +3,14 @@ package main
 import (
 	"crypto/sha256"
 	"fmt"
+	"raft-blockchain/Blockchain"
 )
 
 func main() {
 	h := sha256.New()
-	chain := NewChain(2)
+	chain := Blockchain.NewChain(2)
 	fmt.Println("init...")
-	block := NewBlock(chain.Height, chain.GetPreviousHash(), 123)
+	block := Blockchain.NewBlock(chain.Height, chain.GetPreviousHash(), 123)
 	block.AppendTransaction("A", "B", 0.5)
 	block.AppendTransaction("B", "A", 0.1)
 	block.AppendTransaction("A", "C", 0.7)
@@ -17,7 +18,7 @@ func main() {
 	//fmt.Println(block.Index, block.Timestamp, block.Nonce, block.Transactions)
 	chain.AppendBlock(block)
 
-	block = NewBlock(chain.Height, chain.GetPreviousHash(), 123)
+	block = Blockchain.NewBlock(chain.Height, chain.GetPreviousHash(), 123)
 	block.AppendTransaction("Q", "E", 0.411)
 	block.AppendTransaction("B", "R", 0.10101)
 	block.AppendTransaction("J", "C", 0.6999)
